@@ -1,3 +1,7 @@
+<p align="center">
+  <b>English</b> · <a href="README.zh-CN.md">简体中文</a> · <a href="README.tr.md">Türkçe</a> · <a href="README.ar.md">العربية</a>
+</p>
+
 # python-cli-license-starter
 
 A small template for selling a Python command-line tool with license keys. Clone it, rename `mytool`, and put your own commands in `commands.py`
