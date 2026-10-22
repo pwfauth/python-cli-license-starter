@@ -11,6 +11,8 @@ A small template for selling a Python command-line tool with license keys. Clone
 
 The licensing runs on [PWF Auth](https://pwfauth.com), which is free. You'll need an account there for the app secret and the keys
 
+There's a 3 minute video of the whole thing, recorded for real, from `git clone` to banning a key while the exe runs: [youtu.be/2tYxlYZwNnc](https://youtu.be/2tYxlYZwNnc)
+
 ## Try it
 
 ```bash
