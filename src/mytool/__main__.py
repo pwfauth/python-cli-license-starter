@@ -1,4 +1,4 @@
-"""``python -m mytool`` and the PyInstaller entry point."""
+"""``python -m mytool`` and the PyInstaller entry point"""
 
 from mytool.cli import main
 

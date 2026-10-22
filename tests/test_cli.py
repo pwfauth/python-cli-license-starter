@@ -16,7 +16,7 @@ def names(client):
     return [c[0] for c in client.calls]
 
 
-# ── activate ─────────────────────────────────────────────────────────────────
+# activate
 
 def test_activate_saves_the_key_and_closes_the_session(fake, runner):
     client, store = fake
@@ -76,7 +76,7 @@ def test_a_key_from_the_environment_is_not_saved(fake, runner, monkeypatch):
     assert "was not saved" in r.output
 
 
-# ── trial ────────────────────────────────────────────────────────────────────
+# trial
 
 def test_trial_activates_the_trial_key(fake, runner):
     client, store = fake
@@ -90,7 +90,7 @@ def test_a_used_trial_comes_back_with_its_key(fake, runner):
     client, store = fake
     from conftest import reply
     client.trial_reply = reply(success=False, error_code="TRIAL_USED",
-                               message="You have already used your trial.", trial_key=GOOD)
+                               message="You have already used your trial", trial_key=GOOD)
     r = runner.invoke(app, ["trial"])
     assert r.exit_code == 0, r.output
     assert store.key == GOOD
@@ -99,13 +99,13 @@ def test_a_used_trial_comes_back_with_its_key(fake, runner):
 def test_trial_disabled(fake, runner):
     client, store = fake
     from conftest import reply
-    client.trial_reply = reply(success=False, error_code="TRIAL_DISABLED", message="Trials are not available.")
+    client.trial_reply = reply(success=False, error_code="TRIAL_DISABLED", message="Trials are not available")
     r = runner.invoke(app, ["trial"])
     assert r.exit_code == 2
     assert "Trials are not available" in r.output
 
 
-# ── status / deactivate / update ─────────────────────────────────────────────
+# status / deactivate / update
 
 def test_status_without_a_license_says_what_to_do(fake, runner):
     r = runner.invoke(app, ["status"])
@@ -154,7 +154,7 @@ def test_update_shows_the_new_version(fake, runner):
     assert "https://pwfauth.com/api/update/download.php?v=1.1.0" in r.output
 
 
-# ── run: the licensed work ───────────────────────────────────────────────────
+# run: the licensed work
 
 def test_run_needs_a_license(fake, runner):
     r = runner.invoke(app, ["run"])
@@ -195,7 +195,7 @@ def test_no_server_is_a_clear_error(fake, runner):
     assert "Cannot reach the license server" in r.output
 
 
-# ── pieces ───────────────────────────────────────────────────────────────────
+# pieces
 
 def test_session_ensure_active_raises_after_the_end():
     client = FakeClient()

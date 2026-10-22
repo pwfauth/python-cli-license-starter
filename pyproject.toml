@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "mytool"
 dynamic = ["version"]
-description = "A Python command-line tool sold with license keys: activation, free trial and a live kill switch."
+description = "A Python command-line tool sold with license keys: activation, free trial and a live kill switch"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]

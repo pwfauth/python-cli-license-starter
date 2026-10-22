@@ -1,10 +1,10 @@
-"""Build a single-file executable of the tool with PyInstaller.
+"""Build a single-file executable of the tool with PyInstaller
 
     PWFAUTH_SECRET=<your app secret> python scripts/build.py
 
 The secret is written into src/mytool/_build_secret.py for the build only and the file
 is deleted afterwards, so it never ends up in git. The result is dist/mytool (.exe on
-Windows). Needs `pip install -e .[build]`.
+Windows). Needs `pip install -e .[build]`
 """
 
 from __future__ import annotations
@@ -36,7 +36,7 @@ def main() -> int:
         secret = os.environ.get("PWFAUTH_SECRET", "").strip()
     if not args.no_secret and not re.fullmatch(r"[0-9a-fA-F]{64}", secret):
         print("Set PWFAUTH_SECRET to the 64-character app secret from the PWF Auth panel "
-              "(or pass --secret-file, or --no-secret).", file=sys.stderr)
+              "(or pass --secret-file, or --no-secret)", file=sys.stderr)
         return 2
 
     if secret:

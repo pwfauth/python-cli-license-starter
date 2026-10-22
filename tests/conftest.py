@@ -1,4 +1,4 @@
-"""A fake license server client, so the tests run offline and in a second."""
+"""A fake license server client, so the tests run offline and in a second"""
 
 from __future__ import annotations
 
@@ -44,7 +44,7 @@ class MemoryStore:
 
 
 class FakeClient:
-    """The PwfClient methods the tool uses, answering like the real server."""
+    """The PwfClient methods the tool uses, answering like the real server"""
 
     base_url = "https://pwfauth.com"
 
@@ -67,12 +67,12 @@ class FakeClient:
         self._log("login", key)
         if key in self.bound_elsewhere:
             return reply(success=False, error_code="HWID_MISMATCH",
-                         message="This license is bound to another computer.")
+                         message="This license is bound to another computer")
         if key not in (GOOD, TURBO, ELSEWHERE):
-            return reply(success=False, error_code="INVALID_KEY", message="Invalid license key.")
+            return reply(success=False, error_code="INVALID_KEY", message="Invalid license key")
         self.session = "s-1"
         return reply(success=True, session_id="s-1", user=user(key), features={"turbo": key == TURBO},
-                     texts={"motd": "Version 2 is coming in November."}, app={"message": ""})
+                     texts={"motd": "Version 2 is coming in November"}, app={"message": ""})
 
     def logout(self):
         self._log("logout")
@@ -81,7 +81,7 @@ class FakeClient:
     def check_key(self, key):
         self._log("check_key", key)
         if key not in (GOOD, TURBO):
-            return reply(success=False, valid=False, error_code="INVALID_KEY", message="Key not found.")
+            return reply(success=False, valid=False, error_code="INVALID_KEY", message="Key not found")
         return reply(success=True, valid=True, key={"status": "active", "key_type": "days", "duration": 30,
                                                     "expires_at": "2026-10-31T10:00:00Z", "days_remaining": 8},
                      features={"turbo": key == TURBO})
@@ -108,7 +108,7 @@ class FakeClient:
                 cb = self.on_session_ended
                 self.session = None
                 if cb:
-                    cb("BANNED", "This license has been banned.")
+                    cb("BANNED", "This license has been banned")
             threading.Timer(self.end_after, ban).start()
 
     def get_variable(self, name):
@@ -120,7 +120,7 @@ class FakeClient:
 
 @pytest.fixture
 def fake(monkeypatch):
-    """(client, store); the CLI builds its Licensing from these."""
+    """(client, store); the CLI builds its Licensing from these"""
     client, store = FakeClient(), MemoryStore()
     monkeypatch.setattr(cli, "licensing_factory",
                         lambda: Licensing(client=client, store=store, grace_seconds=30))

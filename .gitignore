@@ -1,4 +1,4 @@
-# Written by scripts/build.py for a release build and deleted again. Never commit it.
+# Written by scripts/build.py for a release build and deleted again. Never commit it
 src/mytool/_build_secret.py
 .env
 

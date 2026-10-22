@@ -1,9 +1,9 @@
-"""Where the license key is kept between runs.
+"""Where the license key is kept between runs
 
 The default is the operating system's credential store through ``keyring``: Windows
 Credential Manager, the macOS Keychain, or the Secret Service on Linux. Machines with
 no credential store (a headless server, a container) fall back to a file readable only
-by the current user. ``MYTOOL_STORE=file`` picks the file on purpose.
+by the current user. ``MYTOOL_STORE=file`` picks the file on purpose
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ _FILE_NAME = "license.key"
 
 
 class KeyStore(Protocol):
-    """The three things the licensing layer needs from a store."""
+    """The three things the licensing layer needs from a store"""
 
     def get(self) -> Optional[str]: ...
     def set(self, key: str) -> None: ...
@@ -27,7 +27,7 @@ class KeyStore(Protocol):
 
 
 class FileStore:
-    """A plain file in the settings folder, mode 0600 where the OS supports it."""
+    """A plain file in the settings folder, mode 0600 where the OS supports it"""
 
     def __init__(self, folder: Optional[Path] = None) -> None:
         self.path = (folder or config.home_dir()) / _FILE_NAME
@@ -52,7 +52,7 @@ class FileStore:
 
 
 class KeyringStore:
-    """The OS credential store."""
+    """The OS credential store"""
 
     def __init__(self, service: str = config.APP_NAME) -> None:
         self.service = service
@@ -87,7 +87,7 @@ def _keyring_usable() -> bool:
 
 
 def default_store() -> KeyStore:
-    """The store this machine should use (see the module docstring)."""
+    """The store this machine should use (see the module docstring)"""
     wanted = os.environ.get(config.ENV_STORE, "").strip().lower()
     if wanted == "file" or (wanted != "keyring" and not _keyring_usable()):
         return FileStore()

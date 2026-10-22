@@ -1,4 +1,4 @@
-"""Terminal output: the license card, notices and errors."""
+"""Terminal output: the license card, notices and errors"""
 
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ _STATUS_STYLE = {
 
 
 def mask_key(key: Optional[str]) -> str:
-    """``ABCD-1234-EF56-7890`` → ``ABCD-••••-••••-7890``: enough to recognise, not to reuse."""
+    """``ABCD-1234-EF56-7890`` → ``ABCD-••••-••••-7890``: enough to recognise, not to reuse"""
     if not key:
         return "-"
     parts = key.split("-")
@@ -102,12 +102,18 @@ def card_from_check(res, key: str) -> Panel:
                         expires=k.get("expires_at"), days_left=k.get("days_remaining"), features=res.features)
 
 
+def tidy(message: str) -> str:
+    """One line for the terminal: server messages arrive with a final period, ours have none"""
+    message = (message or "").strip()
+    return message[:-1] if message.endswith(".") and not message.endswith("..") else message
+
+
 def ok(message: str) -> None:
-    console.print(f"[green]✓[/] {message}")
+    console.print(f"[green]✓[/] {tidy(message)}")
 
 
 def info(message: str) -> None:
-    console.print(f"[{ACCENT}]›[/] {message}")
+    console.print(f"[{ACCENT}]›[/] {tidy(message)}")
 
 
 def notice(message: str, title: str = "Notice") -> None:
@@ -117,11 +123,11 @@ def notice(message: str, title: str = "Notice") -> None:
 
 def error(message: str, code: Optional[str] = None) -> None:
     tail = f" [dim]({code})[/]" if code and code.isupper() else ""
-    err_console.print(f"[red]✗[/] {message}{tail}")
+    err_console.print(f"[red]✗[/] {tidy(message)}{tail}")
 
 
 def session_ended(message: str, code: Optional[str]) -> None:
     err_console.print()
-    err_console.print(Panel(f"{message}\n[dim]The tool stopped because the license is no longer valid "
-                            f"on this computer.[/]", title=f"[bold red]License ended[/] [dim]{code or ''}[/]",
+    err_console.print(Panel(f"{tidy(message)}\n[dim]The tool stopped because the license is no longer valid "
+                            f"on this computer[/]", title=f"[bold red]License ended[/] [dim]{code or ''}[/]",
                             title_align="left", border_style="red", padding=(0, 1), expand=False))
