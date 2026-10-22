@@ -86,13 +86,6 @@ class Session:
         value = texts.get(name) if isinstance(texts, dict) else None
         return value if isinstance(value, str) and value.strip() else None
 
-    @property
-    def login_message(self) -> Optional[str]:
-        """The app's sign-in message (panel: Applications, then Login message)"""
-        app = self.response.data.get("app")
-        msg = app.get("message") if isinstance(app, dict) else None
-        return msg if isinstance(msg, str) and msg.strip() else None
-
     def get_variable(self, name: str) -> Optional[str]:
         """A value stored on the server for this customer (panel: Licences, then Variables)"""
         return self.client.get_variable(name)

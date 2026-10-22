@@ -86,6 +86,9 @@ def activate(key: Optional[str] = typer.Argument(None, help="Your license key. A
     res = lic.activate(key, confirm_move=_confirm_move(yes))
     ui.ok("License activated on this computer")
     ui.console.print(ui.card_from_login(res, key.strip()))
+    welcome = (res.data.get("app") or {}).get("message") if isinstance(res.data.get("app"), dict) else None
+    if isinstance(welcome, str) and welcome.strip():
+        ui.info(welcome)
     if lic.key_from_env:
         ui.info(f"The key came from {config.ENV_LICENSE_KEY}, so it was not saved")
 

@@ -24,9 +24,9 @@ def run(steps: int = typer.Option(20, min=1, max=100_000, help="How many work st
     """Do the tool's work. Needs an active license"""
     with get_licensing().session() as session:
         # Remote texts: change what the tool says without shipping a new version
-        for message in (session.login_message, session.text("motd")):
-            if message:
-                ui.notice(message)
+        motd = session.text("motd")
+        if motd:
+            ui.notice(motd)
 
         # A user variable: a value kept on the server for this customer
         runs = session.bump_counter("runs")
