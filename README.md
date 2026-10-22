@@ -6,7 +6,7 @@ A small template for selling a Python command-line tool with license keys. Clone
 [![License: MIT](https://img.shields.io/badge/license-MIT-2ea44f)](LICENSE)
 
 <p align="center">
-  <img src="docs/activate-and-run.png" alt="mytool activate, then mytool run" width="760">
+  <img src="docs/terminal.png" alt="mytool status and two runs in Windows Terminal, the second one showing a message from the dashboard" width="820">
 </p>
 
 The licensing runs on [PWF Auth](https://pwfauth.com), which is free. You'll need an account there for the app secret and the keys
@@ -26,6 +26,10 @@ mytool run
 
 The secret is on your app's card under Applications in the panel. Keys are made under Licences
 
+<p align="center">
+  <img src="docs/activate.png" alt="mytool activate binds the key and prints the license" width="820">
+</p>
+
 ## What's in it
 
 - `mytool activate` binds a key to this machine and keeps it in the OS credential store (Credential Manager on Windows, Keychain on macOS, Secret Service on Linux)
@@ -37,14 +41,10 @@ The secret is on your app's card under Applications in the panel. Keys are made 
 
 When a key is already in use on another computer, `activate` offers to move it here. Whether customers can do that, and how often, is a setting in the panel
 
-<p align="center">
-  <img src="docs/move-license.png" alt="Moving a license from another computer" width="760">
-</p>
-
 ## Revoking a key while it runs
 
 <p align="center">
-  <img src="docs/kill-switch.png" alt="A running job stops after the key is banned" width="760">
+  <img src="docs/kill-switch.gif" alt="The key is banned in the dashboard and the running exe stops" width="820">
 </p>
 
 Paid commands run inside `get_licensing().session()`. While the block runs, a heartbeat checks the key in the background. Ban, pause or delete the key in the panel and the command stops on the next heartbeat with exit code 3
@@ -71,7 +71,7 @@ def convert(path: str) -> None:
 ## Status and updates
 
 <p align="center">
-  <img src="docs/status-and-update.png" alt="mytool status and mytool update" width="760">
+  <img src="docs/dashboard-text.png" alt="The motd text under Texts & slides in the PWF Auth dashboard" width="820">
 </p>
 
 Publish a version under Updates in the panel and `mytool update` shows it. Texts under Texts & slides show up in the tool too: the example prints a text called `motd` at the start of every run, so you can tell people something without shipping a new build
